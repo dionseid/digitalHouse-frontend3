@@ -4,7 +4,6 @@ import Historial from "./Historial";
 import Data from "./data";
 
 export default class Historia extends React.Component {
-
     constructor() {
         super();
 
@@ -15,11 +14,15 @@ export default class Historia extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.contador !== prevState.contador) this.state.historial.push(<li key={this.state.contador + 1}>{this.state.seleccionPrevia}</li>);
+    }
+
     elegirOpcion = (value) => {
         if (this.state.contador < Data.length - 1) // Dejar de funcionar al agotarse le JSON
             this.setState({
                 contador: this.state.contador + 1,
-                historial: [...this.state.historial, <li key={this.state.contador + 1}>{value}</li>],
+                //historial: [...this.state.historial, <li key={this.state.contador + 1}>{value}</li>],
                 seleccionPrevia: value
             });
         else alert("Fin.");
